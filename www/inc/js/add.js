@@ -7,7 +7,7 @@ window.onload = function () {
 
     function initCoords() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(saveData);
+            navigator.geolocation.getCurrentPosition(saveData, onError, options);
             console.log('This works');
         } else {
             showError("Your browser does not support Geolocation!");
@@ -30,6 +30,19 @@ window.onload = function () {
 
         alert('Your location is saved!');
         window.location.replace("list.html");
+    }
+    
+    //Options object
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    //Error handling
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
     }
 
     document.getElementById('saveData').onclick = initCoords;
